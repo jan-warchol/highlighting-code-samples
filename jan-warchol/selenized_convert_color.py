@@ -24,11 +24,6 @@ def hsv_str(self):
         self.hsv_h, self.hsv_s*100, self.hsv_v*100
     )
 
-# def rgb_str(self):
-#     return "{:>3.0f},{:>3.0f},{:>3.0f}".format(
-#         self.rgb_r*255, self.rgb_g*255, self.rgb_b*255
-#     )
-
 LabColor.__str__      = lab_str
 HSVColor.__str__      = hsv_str
 sRGBColor.__str__     = sRGBColor.get_rgb_hex
@@ -101,14 +96,6 @@ class Color(object):
         self.clamp('srgb')
         self.clamp('apple')
         self.clamp('hsv')
-
-    def __str__(self):
-        return "   ".join(["{}"]*4).format(
-            self.lab,
-            self.hsv,
-            self.srgb,
-            self.apple,
-        )
 
     def __repr__(self):
         return ("<Selenized Color Coords:" + "\n    {}"*4 + "\n>").format(
