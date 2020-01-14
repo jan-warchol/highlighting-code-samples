@@ -1,6 +1,7 @@
 from colormath.color_objects import LabColor, sRGBColor
 from colormath.color_conversions import convert_color
 
+DAYLIGHT_NOON = 'd65'
 
 class Palette(object):
     """Build a palette from bg, fg, lightness data and optional accent colors.
@@ -12,8 +13,8 @@ class Palette(object):
     def __init__(self, background, foreground, name=None):
         """Initialize with base shades. Accent colors may remain empty."""
         self.name = name
-        self.bg = LabColor(*background, illuminant='d50')
-        self.fg = LabColor(*foreground, illuminant='d50')
+        self.bg = LabColor(*background, illuminant=DAYLIGHT_NOON)
+        self.fg = LabColor(*foreground, illuminant=DAYLIGHT_NOON)
         self.contrast = self.fg.lab_l - self.bg.lab_l
 
         self.base_shades = {}
@@ -56,7 +57,7 @@ class Palette(object):
 
     def lab_colors(self):
         return {
-            name: LabColor(*coords, illuminant='d50')
+            name: LabColor(*coords, illuminant=DAYLIGHT_NOON)
             for name, coords in self.all_colors().items()
         }
 
