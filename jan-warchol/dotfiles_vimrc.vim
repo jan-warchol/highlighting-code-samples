@@ -1,23 +1,3 @@
-" APPEARANCE ===========================================================
-
-set title
-set number
-set scrolloff=2
-set sidescrolloff=5
-set cursorline
-
-" soft-wrap lines only on word boundaries
-set linebreak
-set nowrap
-
-" Allow color schemes to do bright colors without forcing bold.
-" This must be done before colorscheme settings, and also must be set here so
-" that sensible-vim will not set it on its own (see
-" https://github.com/tpope/vim-sensible/issues/74)
-set t_Co=16
-
-
-
 " SEARCHING ============================================================
 
 set ignorecase " Do case insensitive matching
@@ -63,13 +43,6 @@ set hidden
 " new undo item when pressed CR
 inoremap <CR> <C-G>u<CR>
 
-" I was getting terrible vim performance on some Ansible playbook files - the
-" cursor would sometimes lag for several seconds when moving (especially when
-" there were a lot of brackets/braces in the file).
-" I found someone who was having similar problem, and he solved it by using
-" old regex engine - see https://github.com/xolox/vim-easytags/issues/88
-set regexpengine=1
-
 " check for outside changes of the file more often
 autocmd CursorHold * checktime
 
@@ -105,28 +78,9 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'  " relative line numbers in normal, abs
 let g:UseNumberToggleTrigger=0  " don't overwrite C-n mapping
 Plug 'vim-scripts/vim-airline'
 let g:airline#extensions#branch#displayed_head_limit = 18
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-" Additional interface elements ----------------------------------------
-Plug 'scrooloose/nerdtree'
-Plug 'sjl/gundo.vim'
-Plug 'junegunn/vim-peekaboo'  " previewing register content
-Plug 'junegunn/fzf'  " TODO: configure vim to use my FZF installation
-Plug 'junegunn/fzf.vim'
-" Enable history of patterns used in each FZF command
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-Plug 'qpkorr/vim-bufkill'
-Plug 'tpope/vim-fugitive'
 
 " General behavior -----------------------------------------------------
 Plug 'Carpetsmoker/auto_autoread.vim' " autodetect changes in file (bugged, needs enabling)
-
-" New text objects definitions -----------------------------------------
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'vim-scripts/tComment'
-Plug 'kana/vim-textobj-user' " required by vim-textobj-line
-Plug 'kana/vim-textobj-line' " allows selecting 'inner' line (without newline char)
 
 " Navigation/motions ---------------------------------------------------
 Plug 'jeetsukumaran/vim-indentwise'
@@ -194,16 +148,6 @@ let mapleader = "\<Space>"
 nmap <Leader>se :call SyntaxAttr()<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
-" NERDTree
-nmap <Leader>it :NERDTreeToggle<CR>
-nmap <Leader>if :NERDTreeFocus<CR>
-
-" Fuzzy-find in all files (including hidden)
-command! -bang -nargs=? -complete=dir FilteredFiles call
-  \ fzf#vim#files(<q-args>,
-  \     {'source': "smart-find"},
-  \     <bang>0)
-
 " Fuzzy-find in dotfiles
 command! -bang -nargs=? -complete=dir DotFiles call
   \ fzf#vim#files(<q-args>,
@@ -222,14 +166,6 @@ nmap <Leader>od :DotFiles<CR>
 
 nmap <Leader>ow :Windows<CR>
 
-" Ctrl-S and Ctrl-Q are unused by default
-nnoremap <C-S> :w<CR>
-inoremap <C-S> <Esc>:w<CR>
-nnoremap <C-Q> :w<CR>:qall<CR>
-inoremap <C-Q> <Esc>:w<CR>:qall<CR>
-map <F3> :set wrap!<CR>
-imap <F3> <C-O>:set wrap!<CR>
-
 
 " consistency ----------------------------------------------------------
 
@@ -238,21 +174,12 @@ imap <F3> <C-O>:set wrap!<CR>
 nnoremap <C-W>nx :new<CR>
 nnoremap <C-W>nv :vnew<CR>
 
-" swap horizontal split with exchanging windows. This is mainly for
-" consistency (many plugins etc. use C-X for opening horizontal splits)
-nnoremap <C-W>x <C-W>s
-nnoremap <C-W>s <C-W>x
-
 " Nawigate splits. This is such an important task that there really should be
 " a first-level mapping for it.
 nnoremap <silent> <C-Right> <c-w>l
 nnoremap <silent> <C-Left> <c-w>h
 nnoremap <silent> <C-Up> <c-w>k
 nnoremap <silent> <C-Down> <c-w>j
-
-" default behaviour of these two simply annoys me 
-inoremap <C-Z> <C-O><C-Z>
-nmap U u
 
 
 " navigation -----------------------------------------------------------
