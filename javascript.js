@@ -1,0 +1,1 @@
+./terminal-sexy/javascript-2.js
