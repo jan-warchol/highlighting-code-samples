@@ -4,9 +4,6 @@
 # don't mix all histories together - make sure that *all* commands from the
 # current session are on top of its history, so that pressing up arrow will
 # give you most recent command from this session, not from any session.
-#
-# Since history is saved on each prompt, this additionally protects it from
-# terminal crashes.
 
 # on every prompt, save new history to dedicated file and recreate full history
 # by reading all files, always keeping history from current session on top.
