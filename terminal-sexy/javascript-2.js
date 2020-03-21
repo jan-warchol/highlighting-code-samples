@@ -20,13 +20,7 @@ var Token = function (stream) {
     [ /^\x1b\[(?:\d{0,3};?)+m/, this.replaceAnsi ],
 
     // All other escape codes
-    [ /^\x1b\[[^@-~]*[@-~]/, this.replaceOtherAnsi ],
-
-    // Replace ^[ chars
-    [ /^\x1b/, this.replaceEscape ],
-
-    // Keep actual text
-    [ /^([^\x1b]+)/m, this.replaceText ]
+    [ /^\x1b\[[^@-~]*[@-~]/, this.replaceOtherAnsi ]
   ];
 };
 
@@ -46,14 +40,6 @@ _.extend(Token.prototype, {
 
   replaceOtherAnsi: function (codes) {
     return { type: 'ansi-other', value: codes };
-  },
-
-  replaceText: function (text) {
-    return { type: 'text', value: text };
-  },
-
-  replaceEscape: function () {
-     return { type: 'text', value: 'ESC' };
   },
 
   process: function (fn, output) {
